@@ -1,9 +1,4 @@
 import random
-# make these random intregers between screen so it makes it spawn randmoly on the screen
-x = 0 #between 0 and 1600
-y = 300 #between 0 and 1200
-x2 = 300 #between 0 and 1600
-y2 = 0 #between 0 and 1200
 
 speed_x = 3
 speed_y = 3
@@ -13,9 +8,20 @@ speed_y_2 = 1
 bone = None
 puppy = None
 
+add_library('minim')
+
 def setup():
-    global bone, puppy, bonex, boney, puppyx, puppyy, grass
+    global bone, puppy, bonex, boney, puppyx, puppyy, grass, x, y, x2, y2, game_over
     size(1600,1200)
+    game_over = False
+    
+    # make these random intregers between screen so it makes it spawn randmoly on the screen
+    x = random.randint(0, 1600) #0 #between 0 and 1600
+    y = random.randint(0, 1200) #300 #between 0 and 1200
+    x2 = random.randint(0, 1600) #300 #between 0 and 1600
+    y2 = random.randint(0, 1200) #0 #between 0 and 1200
+
+
     bone = loadImage('bone.png')
     puppy = loadImage('puppy.png')
     bonex = 407/5
@@ -24,30 +30,41 @@ def setup():
     puppyy = 514/5
     grass = loadImage('grass.png')
     grass.resize(1600,1200)
+    
     #add music 
+    minim = Minim(this)
+    sound = minim.loadFile("calm.mp3")
+    sound.loop()
 
 def draw():
-    global x,y, x2, y2, speed_x, speed_y, speed_y_2, speed_x_2, bone, puppy, bonex, boney, puppyx, puppyy, grass
-    background(grass)
-    image(bone, x, y,bonex,boney)
-    image(puppy, x2, y2, puppyx, puppyy)
-    x += speed_x * 3
-    y += speed_y *3
+    global x,y, x2, y2, speed_x, speed_y, speed_y_2, speed_x_2, bone, puppy, bonex, boney, puppyx, puppyy, grass, x, y, x2, y2, game_over
     
-    x2 += speed_x_2
-    y2 += speed_y_2
-    
-    
-    check_collision()
-    find_center()
-    find_direction()
-
-
+    if game_over == False:
+        background(grass)
+        image(bone, x, y,bonex,boney)
+        image(puppy, x2, y2, puppyx, puppyy)
+        x += speed_x * 3
+        y += speed_y *3
+        
+        x2 += speed_x_2
+        y2 += speed_y_2
+        
+        
+        check_collision()
+        find_center()
+        find_direction()
+        check_end()
+    else:
+        background(grass)
+        textSize(52)
+        textAlign(CENTER)
+        text("DOG HAS CAUGHT BONE!!!!", 700, 500)
+        
 
 
 
 def check_collision():
-    global x,y, x2, y2, speed_x, speed_y, speed_y_2, speed_x_2, bone, puppy, bonex, boney, puppyx, puppyy, grass
+    global x,y, x2, y2, speed_x, speed_y, speed_y_2, speed_x_2, bone, puppy, bonex, boney, puppyx, puppyy, grass, x, y, x2, y2
     #Edge Boundries
         
     if (x > 1600 - (bonex) or x < 0):
@@ -76,12 +93,21 @@ def check_collision():
         
         
         
-#def check_end():
+def check_end():
     #check if two things are touching and if so change game over 
-  
+    global game_over 
+    
+    if bonex_center == puppyx_center and boney_center == puppyy_center:
+        game_over = True
+        
+        
+    if (bonex_center - 2) == (puppyx_center - 2) or (bonex_center + 2) == (puppyx_center + 2) and (boney_center - 2) == (puppyy_center - 2) or (boney_center + 2) == (puppyy_center + 2):
+        game_over = True
+
+    
 def find_direction():
     
-    global bonex_center, boney_center,speed_y_2, speed_x_2,x2,y2,puppyy_center,puppyx_center
+    global bonex_center, boney_center,speed_y_2, speed_x_2,x2,y2,puppyy_center,puppyx_center, x, y, x2, y2
     
     if bonex_center < puppyx_center:
         if speed_x_2 > 0:
@@ -101,12 +127,9 @@ def find_direction():
         if speed_y_2 < 0:
             speed_y_2 *= -1
         
-        
-    
- 
        
 def find_center():
-    global bonex, boney, x, y, bonex_center, boney_center, x2, y2, puppyx_center, puppyy_center, puppyx, puppyy
+    global bonex, boney, x, y, bonex_center, boney_center, x2, y2, puppyx_center, puppyy_center, puppyx, puppyy, x, y, x2, y2
     
     bonex_center = x + bonex/2
     boney_center = y + boney/2
