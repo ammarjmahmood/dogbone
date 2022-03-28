@@ -1,9 +1,9 @@
 import random
-
-x = 0
-y = 300
-x2 = 300
-y2 = 0
+# make these random intregers between screen so it makes it spawn randmoly on the screen
+x = 0 #between 0 and 1600
+y = 300 #between 0 and 1200
+x2 = 300 #between 0 and 1600
+y2 = 0 #between 0 and 1200
 
 speed_x = 3
 speed_y = 3
@@ -24,7 +24,7 @@ def setup():
     puppyy = 514/5
     grass = loadImage('grass.png')
     grass.resize(1600,1200)
-    
+    #add music 
 
 def draw():
     global x,y, x2, y2, speed_x, speed_y, speed_y_2, speed_x_2, bone, puppy, bonex, boney, puppyx, puppyy, grass
@@ -76,7 +76,8 @@ def check_collision():
         
         
         
-
+#def check_end():
+    #check if two things are touching and if so change game over 
   
 def find_direction():
     
