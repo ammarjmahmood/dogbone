@@ -20,8 +20,8 @@ def setup():
 def draw():
     global x,y, x2, y2, speed_x, speed_y, speed_y_2, speed_x_2, bone, puppy
     background('#000000')
-    image(bone, x, y)
-    image(puppy, x2, y2)
+    image(bone, x, y,407/5,613/5)
+    image(puppy, x2, y2,486/5,514/5)
     x += speed_x
     y += speed_y
     x2 += speed_x_2
@@ -35,15 +35,17 @@ def draw():
     if x > x2 and x < (x2 + 100) and y >= y2 and y <= (y2 +45):
         speed_x *= -1
         speed_x_2 *= -1
-    
-    if (x2 > 700 or x2 < 0):
+
+
+#Edge Boundries
+    if (x2 > (800 - 486/5) or x2 < 0):
         speed_x_2 *= -1
-    elif (y2 > 555 or y2 < 0):
+    elif (y2 > (600 - 514/5) or y2 < 0):
         speed_y_2 *= -1
         
-    if (x > 700 or x < 0):
+    if (x > 800 - (407/5) or x < 0):
         speed_x *= -1
-    elif (y > 555 or y < 0):
+    elif (y > 600 - (613/5) or y < 0):
         speed_y *= -1
     
        
