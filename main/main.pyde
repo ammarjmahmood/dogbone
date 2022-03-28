@@ -62,7 +62,12 @@ def check_collision():
         speed_x_2 += 3
         speed_y_2 += 3
         
-        find_center()
+    if (x2 > (800 - puppyx) or x2 < 0):
+        speed_x_2 *= -1
+    elif (y2 > (600 - puppyy) or y2 < 0):
+        speed_y_2 *= -1
+        
+  
         
  
        
