@@ -97,12 +97,12 @@ def check_end():
     #check if two things are touching and if so change game over 
     global game_over 
     
-    if bonex_center == puppyx_center and boney_center == puppyy_center:
+    if bonex_center == puppyx_center or boney_center == puppyy_center:
         game_over = True
         
         
-    if (bonex_center - 2) == (puppyx_center - 2) or (bonex_center + 2) == (puppyx_center + 2) and (boney_center - 2) == (puppyy_center - 2) or (boney_center + 2) == (puppyy_center + 2):
-        game_over = True
+    # if (bonex_center - 2) == (puppyx_center - 2) or (bonex_center + 2) == (puppyx_center + 2) and (boney_center - 2) == (puppyy_center - 2) or (boney_center + 2) == (puppyy_center + 2):
+    #     game_over = True
 
     
 def find_direction():
