@@ -105,7 +105,7 @@ def check_end():
     # if (bonex_center - 2) == (puppyx_center - 2) or (bonex_center + 2) == (puppyx_center + 2) and (boney_center - 2) == (puppyy_center - 2) or (boney_center + 2) == (puppyy_center + 2):
     #     game_over = True
     
-    if x < x2 + bonex and x + puppyx > x2 and y < y2 + boney and boney + y > y2:
+    if (x-20) < (x2-20) + (bonex - 20) and (x - 20) + (puppyx - 20) > (x2 - 20) and (y - 20) < (y2 - 20) + (boney - 20) and (boney - 20) + (y - 20) > (y2 - 20):
         game_over = True
     
 def find_direction():
