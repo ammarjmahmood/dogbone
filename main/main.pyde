@@ -96,14 +96,17 @@ def check_collision():
 def check_end():
     #check if two things are touching and if so change game over 
     global game_over 
+    global x,y, x2, y2, speed_x, speed_y, speed_y_2, speed_x_2, bone, puppy, bonex, boney, puppyx, puppyy, grass, x, y, x2, y2
     
-    if bonex_center == puppyx_center or boney_center == puppyy_center:
-        game_over = True
+    # if bonex_center == puppyx_center and boney_center == puppyy_center:
+    #     game_over = True
         
         
     # if (bonex_center - 2) == (puppyx_center - 2) or (bonex_center + 2) == (puppyx_center + 2) and (boney_center - 2) == (puppyy_center - 2) or (boney_center + 2) == (puppyy_center + 2):
     #     game_over = True
-
+    
+    if x < x2 + bonex and x + puppyx > x2 and y < y2 + boney and boney + y > y2:
+        game_over = True
     
 def find_direction():
     
