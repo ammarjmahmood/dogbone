@@ -15,11 +15,7 @@ def setup():
     size(1600,1200)
     game_over = False
     
-    # make these random intregers between screen so it makes it spawn randmoly on the screen
-    x = random.randint(0, 1600) #0 #between 0 and 1600
-    y = random.randint(0, 1200) #300 #between 0 and 1200
-    x2 = random.randint(0, 1600) #300 #between 0 and 1600
-    y2 = random.randint(0, 1200) #0 #between 0 and 1200
+
 
 
     bone = loadImage('bone.png')
@@ -30,7 +26,11 @@ def setup():
     puppyy = 514/5
     grass = loadImage('grass.png')
     grass.resize(1600,1200)
-    
+    # make these random intregers between screen so it makes it spawn randmoly on the screen
+    x = random.randint(0, 1600 - bonex) #0 #between 0 and 1600
+    y = random.randint(0, 1200 - boney) #300 #between 0 and 1200
+    x2 = random.randint(0, 1600 - puppyx) #300 #between 0 and 1600
+    y2 = random.randint(0, 1200 - puppyy) #0 #between 0 and 1200
     #add music 
     minim = Minim(this)
     sound = minim.loadFile("calm.mp3")
@@ -105,7 +105,7 @@ def check_end():
     # if (bonex_center - 2) == (puppyx_center - 2) or (bonex_center + 2) == (puppyx_center + 2) and (boney_center - 2) == (puppyy_center - 2) or (boney_center + 2) == (puppyy_center + 2):
     #     game_over = True
     
-    if (x-20) < (x2-20) + (bonex - 20) and (x - 20) + (puppyx - 20) > (x2 - 20) and (y - 20) < (y2 - 20) + (boney - 20) and (boney - 20) + (y - 20) > (y2 - 20):
+    if (x-30) < (x2-30) + (bonex - 30) and (x - 30) + (puppyx - 30) > (x2 - 30) and (y - 30) < (y2 - 30) + (boney - 30) and (boney - 30) + (y - 30) > (y2 - 30):
         game_over = True
     
 def find_direction():
