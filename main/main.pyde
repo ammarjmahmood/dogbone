@@ -1,9 +1,9 @@
 import random
 
-speed_x = 3
-speed_y = 3
-speed_x_2 = 1
-speed_y_2 = 1
+speed_x = 6
+speed_y = 6
+speed_x_2 = 4
+speed_y_2 = 4
 
 bone = None
 puppy = None
@@ -12,7 +12,7 @@ add_library('minim')
 
 def setup():
     global bone, puppy, bonex, boney, puppyx, puppyy, grass, x, y, x2, y2, game_over
-    size(1600,1200)
+    size(1920,1080)
     game_over = False
     
 
@@ -25,16 +25,16 @@ def setup():
     puppyx = 486/5
     puppyy = 514/5
     grass = loadImage('grass.png')
-    grass.resize(1600,1200)
+    grass.resize(1920,1080)
     # make these random intregers between screen so it makes it spawn randmoly on the screen
-    x = random.randint(0, 1600 - bonex) #0 #between 0 and 1600
-    y = random.randint(0, 1200 - boney) #300 #between 0 and 1200
-    x2 = random.randint(0, 1600 - puppyx) #300 #between 0 and 1600
-    y2 = random.randint(0, 1200 - puppyy) #0 #between 0 and 1200
+    x = random.randint(0, 1920 - bonex) #0 #between 0 and 1600
+    y = random.randint(0, 1080 - boney) #300 #between 0 and 1200
+    x2 = random.randint(0, 1920 - puppyx) #300 #between 0 and 1600
+    y2 = random.randint(0, 1080 - puppyy) #0 #between 0 and 1200
     #add music 
     minim = Minim(this)
     sound = minim.loadFile("calm.mp3")
-    sound.loop()
+    #sound.loop()
 
 def draw():
     global x,y, x2, y2, speed_x, speed_y, speed_y_2, speed_x_2, bone, puppy, bonex, boney, puppyx, puppyy, grass, x, y, x2, y2, game_over
@@ -43,6 +43,14 @@ def draw():
         background(grass)
         image(bone, x, y,bonex,boney)
         image(puppy, x2, y2, puppyx, puppyy)
+        find_center()
+        find_direction()
+        check_collision()
+        
+        check_end()
+        
+        
+        
         x += speed_x * 3
         y += speed_y *3
         
@@ -50,10 +58,6 @@ def draw():
         y2 += speed_y_2
         
         
-        check_collision()
-        find_center()
-        find_direction()
-        check_end()
     else:
         background(grass)
         textSize(52)
@@ -67,8 +71,9 @@ def check_collision():
     global x,y, x2, y2, speed_x, speed_y, speed_y_2, speed_x_2, bone, puppy, bonex, boney, puppyx, puppyy, grass, x, y, x2, y2
     #Edge Boundries
         
-    if (x > 1600 - (bonex) or x < 0):
+    if (x > 1920 - (bonex) or x < 0):
         speed_x *= -1
+
         if speed_x_2 >0:
             speed_x_2 += 1
         else:
@@ -80,8 +85,11 @@ def check_collision():
             
             
  
-    elif (y > 1200 - (boney) or y < 0):
+    elif (y > 1080 - (boney) or y < 0):
         speed_y *= -1
+        
+        
+        
         if speed_x_2 >0:
             speed_x_2 += 1
         else:
