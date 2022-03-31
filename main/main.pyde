@@ -1,5 +1,5 @@
 import random
-
+import math
 speed_x = 6
 speed_y = 6
 speed_x_2 = 4
@@ -11,7 +11,7 @@ puppy = None
 add_library('minim')
 
 def setup():
-    global bone, puppy, bonex, boney, puppyx, puppyy, grass, x, y, x2, y2, game_over
+    global bone, puppy, bonex, boney, puppyx, puppyy, grass, x, y, x2, y2, game_over, angle, xdiff, hyp
     size(1920,1080)
     game_over = False
     
@@ -34,19 +34,35 @@ def setup():
     #add music 
     minim = Minim(this)
     sound = minim.loadFile("calm.mp3")
+    angle = 0
+    xdiff = 0
+    hyp = 0
     #sound.loop()
 
 def draw():
-    global x,y, x2, y2, speed_x, speed_y, speed_y_2, speed_x_2, bone, puppy, bonex, boney, puppyx, puppyy, grass, x, y, x2, y2, game_over
+    global x,y, x2, y2, speed_x, speed_y, speed_y_2, speed_x_2, bone, puppy, bonex, boney, puppyx, puppyy, grass, x, y, x2, y2, game_over,slope3, angle
     
     if game_over == False:
         background(grass)
+        
         image(bone, x, y,bonex,boney)
-        image(puppy, x2, y2, puppyx, puppyy)
+        
+        pushMatrix()
+        translate(x2,y2)
+        
+        rotate(angle)
+        
+        
+        image(puppy, 0, 0, puppyx, puppyy)
+        popMatrix()
+        
+        
+        
+
         find_center()
         find_direction()
         check_collision()
-        
+        rotate_image()
         check_end()
         
         
@@ -67,12 +83,28 @@ def draw():
 
 
 
+
+def rotate_image():
+    global bonex_center, boney_center,speed_y_2, speed_x_2,x2,y2,puppyy_center,puppyx_center, x, y, x2, y2, xdiff, angle
+    print(bonex_center, boney_center, puppyy_center, puppyx_center)
+    ydiff = float(boney_center - puppyy_center) 
+    xdiff = float(bonex_center - puppyx_center)
+    hyp = math.sqrt((xdiff**2 + ydiff**2))
+    angle = math.acos(xdiff/hyp)
+    print(angle)
+
+
+    
+
+
+
 def check_collision():
     global x,y, x2, y2, speed_x, speed_y, speed_y_2, speed_x_2, bone, puppy, bonex, boney, puppyx, puppyy, grass, x, y, x2, y2
     #Edge Boundries
         
     if (x > 1920 - (bonex) or x < 0):
         speed_x *= -1
+        
 
         if speed_x_2 >0:
             speed_x_2 += 1
@@ -87,6 +119,7 @@ def check_collision():
  
     elif (y > 1080 - (boney) or y < 0):
         speed_y *= -1
+
         
         
         
@@ -115,9 +148,10 @@ def check_end():
     
     if (x-30) < (x2-30) + (bonex - 30) and (x - 30) + (puppyx - 30) > (x2 - 30) and (y - 30) < (y2 - 30) + (boney - 30) and (boney - 30) + (y - 30) > (y2 - 30):
         game_over = True
+ 
     
+          
 def find_direction():
-    
     global bonex_center, boney_center,speed_y_2, speed_x_2,x2,y2,puppyy_center,puppyx_center, x, y, x2, y2
     
     if bonex_center < puppyx_center:
@@ -137,6 +171,10 @@ def find_direction():
     if boney_center > puppyy_center: 
         if speed_y_2 < 0:
             speed_y_2 *= -1
+        
+        
+        
+        
         
        
 def find_center():
