@@ -14,8 +14,6 @@ def setup():
     global bone, puppy, bonex, boney, puppyx, puppyy, grass, x, y, x2, y2, game_over, angle, xdiff, hyp
     size(1920,1080)
     game_over = False
-    
-
 
 
     bone = loadImage('bone.png')
@@ -56,8 +54,6 @@ def draw():
         image(puppy, 0, 0, puppyx, puppyy)
         popMatrix()
         
-        
-        
 
         find_center()
         find_direction()
@@ -94,9 +90,6 @@ def rotate_image():
     print(angle)
 
 
-    
-
-
 
 def check_collision():
     global x,y, x2, y2, speed_x, speed_y, speed_y_2, speed_x_2, bone, puppy, bonex, boney, puppyx, puppyy, grass, x, y, x2, y2
@@ -121,8 +114,6 @@ def check_collision():
         speed_y *= -1
 
         
-        
-        
         if speed_x_2 >0:
             speed_x_2 += 1
         else:
@@ -139,12 +130,6 @@ def check_end():
     global game_over 
     global x,y, x2, y2, speed_x, speed_y, speed_y_2, speed_x_2, bone, puppy, bonex, boney, puppyx, puppyy, grass, x, y, x2, y2
     
-    # if bonex_center == puppyx_center and boney_center == puppyy_center:
-    #     game_over = True
-        
-        
-    # if (bonex_center - 2) == (puppyx_center - 2) or (bonex_center + 2) == (puppyx_center + 2) and (boney_center - 2) == (puppyy_center - 2) or (boney_center + 2) == (puppyy_center + 2):
-    #     game_over = True
     
     if (x-30) < (x2-30) + (bonex - 30) and (x - 30) + (puppyx - 30) > (x2 - 30) and (y - 30) < (y2 - 30) + (boney - 30) and (boney - 30) + (y - 30) > (y2 - 30):
         game_over = True
